@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Service.ViewModels.MotorViewModel>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Motors Management";
+}
+
+<div class="container-fluid mt-3">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <h4 class="mb-0 text-primary fw-bold">@ViewBag.Title</h4>
+            <a href="@Url.Action("CreateMotor")" class="btn btn-primary shadow-sm">
+                + Add new
+            </a>
+        </div>
+
+        <div class="card-body">
+            <form action="@Url.Action("Search")" method="post" class="mb-4">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="input-group shadow-sm">
+                            <span class="input-group-text bg-white border-end-0">
+                                <img src="~/wwwroot/icons/search.svg" alt="Search icon" style="width: 18px;" />
+                            </span>
+                            <input name="keyword" type="text" class="form-control border-start-0 ps-0" aria-label="Keyword for search" placeholder="Honda, z100...">
+                            <button class="btn btn-primary px-4" type="submit" id="button-addon2">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 70vh; overflow-y: auto;">
+                    <table class="table table-hover table-bordered mb-0 align-middle">
+                        <thead class="table-light sticky-top shadow-sm" style="z-index: 1;">
+                            <tr class="text-center">
+                                <th style="width: 120px;">Image</th>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.Price) (VND)</th>
+                                <th class="text-start" style="width: 35%;">@Html.DisplayNameFor(model => model.Description)</th>
+                                <th style="width: 180px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            @if (string.IsNullOrWhiteSpace(item.ImageUrl))
+                                            {
+                                                <img src="~/wwwroot/icons/black-moto.png" alt="motor image" class="img-fluid rounded img-thumbnail" style="max-height: 250px; object-fit: contain;" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="Image of motor" class="img-thumbnail shadow-sm" style="width: 90px; height: 90px; object-fit: cover;" />
+                                            }
+                                        </td>
+                                        <td class="fw-semibold text-center">
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td class="text-danger fw-bold text-center">
+                                            @Html.DisplayFor(modelItem => item.Price) VND
+                                        </td>
+                                        <td class="text-start text-wrap" style="max-height: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; border-bottom: none;">
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group shadow-sm" role="group" aria-label="Actions">
+                                                <a href="@Url.Action("EditMotor", new { id = item.Id })" class="btn btn-sm btn-outline-warning" title="Edit Motor">
+                                                    Edit
+                                                </a>
+                                                <a href="@Url.Action("DetailMotor", new { id = item.Id })" class="btn btn-sm btn-outline-info" title="View Detail">
+                                                    View
+                                                </a>
+                                                <a href="@Url.Action("DeleteMotor", new { id = item.Id })" class="btn btn-sm btn-outline-danger" title="Delete Motor">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        Not found any Motors.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

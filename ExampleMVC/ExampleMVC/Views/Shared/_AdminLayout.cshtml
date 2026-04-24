@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVC Motor - @ViewBag.Title</title>
+    <link rel="icon" type="image/x-icon" href="~/mvc-icon.ico" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+
+            <nav class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 shadow-sm bg-black"
+                 style="min-height: 100vh; position: sticky; top: 0;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-4 text-white" style="min-height: 100vh;">
+
+                    <a href="@Url.Action("Index")" class="d-flex flex-column align-items-center mb-4 w-100 text-white text-decoration-none">
+                        <img src="~/mvc-icon.ico" class="img-fluid me-2" style="max-width:50px" alt="logo">
+                        <span class="fs-4 fw-bold text-white d-inline-flex" style="letter-spacing: 1px;">
+                            <span class="d-none d-md-flex" style="color: #FF0000;">MOTOR</span>&nbsp;ADMIN
+                        </span>
+                    </a>
+
+                    <ul class="nav nav-pills flex-column mb-auto align-items-center align-items-sm-start w-100" id="menu">
+                        <li class="nav-item w-100 mb-2">
+                            <a href="@Url.Action("Index")" class="nav-link align-middle px-3 text-white d-inline-flex" style="border-radius: 8px; transition: 0.3s;" onmouseover="this.style.backgroundColor='#343a40'" onmouseout="this.style.backgroundColor='transparent'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                                </svg>
+                                &nbsp;<span class="ms-2 d-none d-sm-inline justify-content-center align-content-center">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item w-100 mb-2">
+                            <a href="@Url.Action("ListUser")" class="nav-link align-middle px-3 text-white d-inline-flex" style="border-radius: 8px; transition: 0.3s;" onmouseover="this.style.backgroundColor='#343a40'" onmouseout="this.style.backgroundColor='transparent'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                </svg>
+                                &nbsp;<span class="ms-2 d-none d-sm-inline justify-content-center align-content-center">User</span>
+                            </a>
+                        </li>
+                        <li class="nav-item w-100 mb-2">
+                            <a href="@Url.Action("ListMotor")" class="nav-link align-middle px-3 text-white d-inline-flex" style="border-radius: 8px; transition: 0.3s;" onmouseover="this.style.backgroundColor='#343a40'" onmouseout="this.style.backgroundColor='transparent'">
+                                <img src="~/wwwroot/icons/white-motor.png" class="fs-5 img-fluid" style="max-width:33px" />
+                                &nbsp;<span class="ms-2 d-none d-sm-inline justify-content-center align-content-center">Moto</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="w-100">
+                        <hr class="w-100" style="border-color: #9c9c9c;">
+
+                        <ul class="nav nav-pills flex-column mb-3 align-items-center align-items-sm-start w-100">
+                            <li class="nav-item w-100 mb-2">
+                                <a href="/" class="nav-link align-middle px-3 text-white d-inline-flex" style="border-radius: 8px; transition: 0.3s;" onmouseover="this.style.backgroundColor='#343a40'" onmouseout="this.style.backgroundColor='transparent'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16">
+                                        <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z" />
+                                    </svg>
+                                    &nbsp;<span class="ms-2 d-none d-sm-inline-flex justify-content-center align-content-center">Client View</span>
+                                </a>
+                            </li>
+                            <li class="nav-item w-100">
+                                <a href="@Url.Action("Logout","Home")" class="nav-link align-middle px-3 fw-bold d-inline-flex" style="border-radius: 8px; transition: 0.3s;" onmouseover="this.style.backgroundColor='rgba(220, 53, 69, 0.1)'" onmouseout="this.style.backgroundColor='transparent'">
+                                    <img src="~/wwwroot/icons/logout.svg" class="fs-5 img-fluid" style="max-width:33px" />
+                                    &nbsp;<span class="ms-2 d-none d-sm-inline-flex justify-content-center align-content-center" style="color:red">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+
+            <main class="col p-0 d-flex flex-column" style="min-width: 0; background-color: #f8f9fa;">
+                <div class="px-3 px-md-4 pb-5 pt-3 flex-grow-1 overflow-auto" style="height: 100vh;">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

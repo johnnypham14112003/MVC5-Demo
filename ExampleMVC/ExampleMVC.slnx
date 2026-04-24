@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ExampleMVC/ExampleMVC.csproj" Id="867ddd3f-49bf-4085-91eb-b9cd5a58711c" />
+  <Project Path="Repository/Repository.csproj" Id="3f04aa1f-a46a-447d-8cea-26ee79f0dda8" />
+  <Project Path="Service/Service.csproj" Id="7167427d-be45-419e-ba78-7ffc99dc4a73" />
+</Solution>

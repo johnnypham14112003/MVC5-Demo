@@ -1,0 +1,7 @@
+﻿INSERT INTO Account(Email, [Password], [Role]) VALUES
+('admin@s3.com','12345', 'Admin'),
+('user@gmail.com','12345', default);
+
+INSERT INTO Motor([Name], [Description], Price,ImageUrl) VALUES
+('Kawasaki Ninja 500', 'High volume motorbike with sport style from Kawasaki.', 159000000, 'ninja500.jpg'),
+('Honda CBR650RR', 'High volume motorbike with sport style from Honda.', 200000000, 'cbr.jpg');

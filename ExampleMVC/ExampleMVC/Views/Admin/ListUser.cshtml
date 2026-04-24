@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Service.ViewModels.AccountViewModel>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Users Management";
+}
+
+<div class="container-fluid mt-3">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <h4 class="mb-0 text-primary fw-bold">@ViewBag.Title</h4>
+            <a href="@Url.Action("CreateUser")" class="btn btn-primary shadow-sm">
+                + Add new
+            </a>
+        </div>
+
+        <div class="card-body">
+            <form action="@Url.Action("SearchUser")" method="post" class="mb-4">
+                @Html.AntiForgeryToken()
+
+                <div class="bg-light p-3 rounded-3 shadow-sm border">
+                    <div class="row g-2 align-items-center">
+
+                        <div class="col-md-5 col-lg-4">
+                            <div class="input-group h-100">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <img src="~/wwwroot/icons/search.svg" alt="Search icon" style="width: 18px;" />
+                                </span>
+                                <input name="keyword" type="text" class="form-control border-start-0 ps-0" aria-label="Keyword for search" placeholder="Nhập từ khóa...">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-3">
+                            <select name="role" class="form-select h-100" aria-label="Select Role">
+                                <option value="">-- All roles --</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Manager">Manager</option>
+                                <option value="User">User</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 col-lg-2">
+                            <button class="btn btn-primary w-100 h-100" type="submit">Tìm kiếm</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 70vh; overflow-y: auto;">
+                    <table class="table table-hover table-bordered mb-0 align-middle">
+                        <thead class="table-light sticky-top shadow-sm" style="z-index: 1;">
+                            <tr class="text-center">
+                                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                                <th>@Html.DisplayNameFor(model => model.Password)</th>
+                                <th>@Html.DisplayNameFor(model => model.Role)</th>
+                                <th style="width: 180px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="fw-semibold text-center">
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.Password)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.Role)
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group shadow-sm" role="group" aria-label="Actions">
+                                                <a href="@Url.Action("EditUser", new { id = item.Id })" class="btn btn-sm btn-outline-warning" title="Edit User">
+                                                    Edit
+                                                </a>
+                                                <a href="@Url.Action("DeleteUser", new { id = item.Id })" class="btn btn-sm btn-outline-danger" title="Delete User">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        Not found any Users.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

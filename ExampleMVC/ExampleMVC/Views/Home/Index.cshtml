@@ -1,0 +1,205 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVC Motor - @ViewBag.Title</title>
+    <link rel="icon" type="image/x-icon" href="~/mvc-icon.ico" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-black">
+        <div class="container">
+
+            <a href="@Url.Action("Index")" class="navbar-brand d-flex align-items-center">
+                <img src="~/mvc-icon.ico" class="img-fluid me-2" style="max-width:50px" alt="logo">
+                MVC Shop
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarText">
+
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Showroom", "Showroom", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    @if (Session["UserName"] != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @Session["UserName"].ToString()
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUser">
+                                @*@if (Session["UserRole"].ToString().Equals("Admin"))
+                                {*@
+                                    <li>
+                                        @Html.ActionLink("Admin Dashboard", "UserDashBoard", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    @*}*@
+                                <li>
+                                    <a href="@Url.Action("EditUser", new { id = Session["UserId"] })" class="dropdown-item" title="Edit User">
+                                        Profile
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    @Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "dropdown-item text-danger" })
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "Login", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="d-flex align-items-center text-center text-white" style="min-height: 70vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('@Url.Content("~/wwwroot/assets/main-bg.jpg")') center/cover no-repeat;">
+        <div class="container">
+            <h1 class="display-3 fw-bolder mb-3">Your Journey Starts <span class="text-danger">Here</span></h1>
+            <p class="lead mb-5 fs-4" style="max-width: 800px; margin: 0 auto;">Experience the freedom of two wheels. MVC Motors provides the finest motorcycles and world-class service in the heart of Ho Chi Minh City.</p>
+            <a href="#services" class="btn btn-danger btn-lg px-5 py-3 fw-bold rounded-pill shadow">Our Services</a>
+        </div>
+    </header>
+
+    <section id="gallery" class="py-5 bg-black">
+        <div class="container py-4">
+            <div class="text-center mb-5 text-white">
+                <h2 class="display-5 fw-bold">Life On Two Wheels</h2>
+                <div class="mx-auto bg-danger" style="height: 4px; width: 60px;"></div>
+            </div>
+
+            <div id="motoCarousel" class="carousel slide carousel-fade shadow-lg" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#motoCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#motoCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#motoCarousel" data-bs-slide-to="2"></button>
+                </div>
+                <div class="carousel-inner rounded-4">
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <img src="~/wwwroot/assets/zxmoto-500rr.jpg" class="d-block w-100" alt="Speed" style="height: 500px; object-fit: cover;">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-3">
+                            <h3 class="fw-bold">Unmatched Speed</h3>
+                            <p>Engineered for those who live life in the fast lane.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="~/wwwroot/assets/ducati.jpg" class="d-block w-100" alt="Luxury" style="height: 500px; object-fit: cover;">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-3">
+                            <h3 class="fw-bold">Premium Comfort</h3>
+                            <p>Luxury meets power for your long-distance adventures.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="~/wwwroot/assets/ktm.jpg" class="d-block w-100" alt="Adventure" style="height: 500px; object-fit: cover;">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-3">
+                            <h3 class="fw-bold">Modern Engineering</h3>
+                            <p>Equipped with the latest technology for safety and performance.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#motoCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#motoCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-5">
+        <div class="container py-5">
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="p-4 bg-white shadow-sm rounded-4 h-100 border-bottom border-danger border-4">
+                        <div class="mb-3 text-danger fs-1">🏍️</div>
+                        <h4 class="fw-bold">Authorized Dealer</h4>
+                        <p class="text-muted">We offer a wide range of authentic motorcycles with full manufacturer warranties and certified documentation.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white shadow-sm rounded-4 h-100 border-bottom border-danger border-4">
+                        <div class="mb-3 text-danger fs-1">🛠️</div>
+                        <h4 class="fw-bold">Expert Maintenance</h4>
+                        <p class="text-muted">Our service center is staffed by professional technicians using genuine parts to keep your ride in top condition.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white shadow-sm rounded-4 h-100 border-bottom border-danger border-4">
+                        <div class="mb-3 text-danger fs-1">💳</div>
+                        <h4 class="fw-bold">Flexible Financing</h4>
+                        <p class="text-muted">Tailored financial plans to help you own your dream bike with low interest rates and quick approval.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="bg-white py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="~/wwwroot/assets/shop-garage.jpg" alt="MVC Garage" class="img-fluid rounded-4 shadow-lg">
+                </div>
+                <div class="col-lg-6 px-lg-5">
+                    <h6 class="text-danger fw-bold text-uppercase tracking-wide">Since 2010</h6>
+                    <h2 class="display-6 fw-bold mb-4">Crafting the Ultimate Riding Experience</h2>
+                    <p class="text-muted fs-5 mb-4">At MVC Motors, we believe a motorcycle is more than just a machine; it's an extension of your soul. We've spent over a decade perfecting the balance between classic aesthetics and modern engineering.</p>
+                    <ul class="list-unstyled text-muted fs-5">
+                        <li class="mb-2"><span class="text-success me-2">✓</span> Premium Build Quality</li>
+                        <li class="mb-2"><span class="text-success me-2">✓</span> Industry-Leading Warranty</li>
+                        <li class="mb-2"><span class="text-success me-2">✓</span> 24/7 Roadside Assistance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="text-white py-5 my-3 mx-3 text-center" style="background: radial-gradient(circle,rgba(0, 0, 0, 1) 37%, rgba(163, 0, 0, 1) 100%); border-radius: 5% 95% 6% 94% / 90% 17% 83% 10% ">
+        <div class="container py-5">
+            <h2 class="display-5 fw-bold mb-3">Ready to Hit the Road?</h2>
+            <p class="lead mb-5" style="max-width: 600px; margin: 0 auto;">Visit our showroom today or leave your email below and our experts will get in touch with you to schedule a personalized test ride.</p>
+
+            <form class="d-flex justify-content-center mx-auto" style="max-width: 500px;" onsubmit="event.preventDefault(); alert('Thank you! We will contact you soon.');">
+                <input type="email" class="form-control form-control-lg rounded-start-pill border-0 px-4" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-danger btn-lg rounded-end-pill px-4 fw-bold">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-black text-secondary py-4 text-center">
+        <div class="container">
+            <p class="mb-0">&copy; @DateTime.Now.Year MVC Motors. All Rights Reserved.</p>
+            <div class="mt-2">
+                <a href="#" class="text-secondary text-decoration-none mx-2">Privacy Policy</a> |
+                <a href="#" class="text-secondary text-decoration-none mx-2">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

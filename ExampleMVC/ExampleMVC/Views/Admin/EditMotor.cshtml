@@ -1,0 +1,95 @@
+﻿@model Service.ViewModels.MotorViewModel
+@{
+    if (!"Showroom".Equals(ViewBag.ReturnTitle))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    ViewBag.Title = "Edit Motor";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2 class="h3 mb-0 text-gray-800">@ViewBag.Title: <span class="text-primary">@Html.DisplayFor(model => model.Name)</span></h2>
+    @Html.ActionLink("Back to List", "ListMotor", null, new { @class = "btn btn-outline-secondary btn-sm" })
+</div>
+
+<div class="row">
+    <div class="col-xl-4 col-lg-5 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 fs-6 fw-bold">Motor Image</h5>
+            </div>
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+                <div class="mb-3">
+                    @if (string.IsNullOrWhiteSpace(Model.ImageUrl))
+                    {
+                        <img src="~/wwwroot/icons/black-moto.png" alt="motor image" class="img-fluid rounded img-thumbnail" style="max-height: 250px; object-fit: contain;" />
+                    }
+                    else
+                    {
+                        <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="motor image" class="img-fluid rounded img-thumbnail" style="max-height: 250px; object-fit: contain;" />
+                    }
+                </div>
+
+                @using (Html.BeginForm("OverrideImage", "Admin", new { motorId = Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="mt-auto">
+                        <label for="fileAttach" class="form-label text-start w-100 small text-muted">Upload new image</label>
+                        <input class="form-control form-control-sm mb-2" type="file" id="fileAttach" name="fileAttach" required />
+                        <button type="submit" class="btn btn-primary btn-sm w-100">
+                            Apply New Picture
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8 col-lg-7 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 fs-6 fw-bold">Motor Details</h5>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("EditMotor", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label fw-semibold" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter motor name..." } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger small mt-1" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "form-label fw-semibold" })
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "0.00" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger small mt-1" })
+                    </div>
+
+                    <div class="mb-4">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label fw-semibold" })
+                        @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control", style = "min-height: 120px; resize: vertical;", placeholder = "Enter description here..." })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger small mt-1" })
+                    </div>
+
+                    <hr />
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success px-4">
+                            Save Changes
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Service.ViewModels.MotorViewModel>
+@{
+    ViewBag.Title = "Showroom";
+}
+
+<style>
+    .showroom-header {
+        background-color: #111;
+        color: white;
+        padding: 50px 0;
+        margin-bottom: 40px;
+        text-align: center;
+        border-bottom: 5px solid #FF0000;
+    }
+
+    .motor-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .motor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+        }
+
+    .motor-img-container {
+        height: 250px;
+        background-color: #e5e5e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+
+        .motor-img-container img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+    .motor-name {
+        font-weight: 800;
+        letter-spacing: 1px;
+        font-size: 1.4rem;
+    }
+
+    .motor-price {
+        color: #66cc33;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .motor-desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.9rem;
+    }
+
+    .search-bar-wrapper {
+        max-width: 700px;
+        margin: 0 auto 40px auto;
+    }
+</style>
+
+<div class="showroom-header w-100">
+    <h1 class="text-uppercase fw-bold" style="letter-spacing: 2px;">Motor Category</h1>
+    <p class="lead mb-0 text-light">Explore power and ultimate style</p>
+</div>
+
+<main class="container mb-5">
+
+    <div class="search-bar-wrapper">
+        <form action="@Url.Action("Search")" method="post">
+            @Html.AntiForgeryToken()
+            <div class="input-group input-group-lg shadow-sm rounded d-inline-flex">
+                <label for="searchField" class="input-group-text bg-white border-end-0">
+                    <img src="~/wwwroot/icons/search.svg" />
+                </label>
+                <input name="keyword" id="searchField" type="text" class="form-control border-start-0 mw-100" aria-label="Keyword for search" placeholder="Find name (e.g: Ninja, Z1000...)" autocomplete="off">
+                <button class="btn btn-dark px-4 fw-bold" type="submit" id="button-addon2">SEARCH</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-1 shadow-sm motor-card">
+
+                    <div class="motor-img-container">
+                        @if (string.IsNullOrWhiteSpace(item.ImageUrl))
+                        {
+                            <img src="~/wwwroot/icons/black-moto.png" alt="motor image" />
+                        }
+                        else
+                        {
+                            <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="motor image" />
+                        }
+                    </div>
+
+                    <div class="card-body d-flex flex-column text-center">
+                        <h2 class="card-title text-uppercase motor-name mb-1">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </h2>
+
+                        <div class="mb-3">
+                            <span class="motor-price">@Html.DisplayFor(modelItem => item.Price) VNĐ</span>
+                        </div>
+
+                        <p class="card-text text-muted motor-desc">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </p>
+
+                        <div class="mt-auto pt-3">
+                            @Html.ActionLink("DETAILS", "DetailMotor", "Home", new { id = item.Id }, new { @class = "btn btn-outline-dark w-100 fw-bold rounded-pill" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</main>
